@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional
 
 import requests
 
-from constants import URL_PREFIX
+from src.constants import URL_PREFIX
 
 
 def fetch_resources(public_key: str, path: Optional[str] = None) -> List[Dict[str, Any]]:
