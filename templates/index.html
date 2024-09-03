@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Яндекс.Диск</title>
+</head>
+<body>
+    <h1>Просмотр файлов на Яндекс.Диске</h1>
+    <form method="POST">
+        <label for="public_key">Введите публичную ссылку:</label>
+        <input type="text" id="public_key" name="public_key" required>
+        <button type="submit">Получить файлы</button>
+    </form>
+
+    {% if files %}
+        <h2>Список файлов и папок:</h2>
+        <ul>
+            {% for file in files %}
+                <li>
+                    {% if file.type == 'dir' %}
+                        <span style="color: blue; font-weight: bold;">{{ file.name }}</span>
+                        <form method="POST" action="{{ url_for('index') }}" style="display:inline;">
+                            <input type="hidden" name="public_key" value="{{ public_key }}">
+                            <input type="hidden" name="path" value="{{ file.path }}">
+                            <button type="submit">Открыть</button>
+                        </form>
+                    {% else %}
+                        <span>{{ file.name }}</span>
+                        <form method="POST" action="{{ url_for('download') }}" style="display:inline;">
+                            <input type="hidden" name="public_key" value="{{ public_key }}">
+                            <input type="hidden" name="file_name" value="{{ file.path }}">
+                            <button type="submit">Скачать</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
