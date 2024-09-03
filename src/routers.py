@@ -4,7 +4,7 @@ from typing import Any, Dict, List
 import requests
 from flask import Flask, render_template, request, send_file
 
-from src.utils import fetch_resources
+from src.utils import fetch_resources, get_target_file_name
 
 app = Flask(
     __name__,
@@ -20,13 +20,14 @@ def index() -> str:
 
     :return: HTML-шаблон главной страницы.
     '''
+
     files: List[Dict[str, Any]] = []
     public_key = None
     path = None
 
     if request.method == 'POST':
         public_key = request.form.get('public_key')
-        path = request.form.get('path')  # Получаем путь к папке, если он есть
+        path = request.form.get('path')
         files = fetch_resources(public_key, path)
 
     return render_template(
@@ -42,23 +43,18 @@ def download():
     Обрабатывает запрос на скачивание файла по указанному пути.
     :return: Файл для скачивания или сообщение об ошибке.
     '''
+
     public_key = request.form.get('public_key')
-    target_file_name = request.form.get('file_name')[1:]  # Имя нужного файла
+    target_file_name = request.form.get('file_name')[1:]  # Имя файла
 
-    items = fetch_resources(public_key)  # Получаем все файлы и папки
-
-    # Ищем файл с искомым именем
-    file_info = next(
-        (item for item in items if item.get('name') == target_file_name),
-        None
+    original_url = get_target_file_name(
+        public_key,
+        target_file_name
     )
 
-    if file_info:
-        # Извлекаем ссылку на оригинал из sizes
-        original_url = file_info['sizes'][0]['url']
-        print(original_url)
+    if original_url:
 
-        # Отправляем файл напрямую
+        # Отправляем файл
         return send_file(
             requests.get(original_url, stream=True).raw,
             as_attachment=True,
