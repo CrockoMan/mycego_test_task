@@ -6,7 +6,6 @@ from flask import Flask, render_template, request, send_file
 
 from src.utils import fetch_resources
 
-# app = Flask(__name__)
 app = Flask(
     __name__,
     template_folder=os.path.join(os.path.dirname(__file__), '..', 'templates')
