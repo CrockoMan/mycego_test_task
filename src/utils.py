@@ -17,7 +17,7 @@ def fetch_resources(
     :return: Список файлов и папок в формате JSON.
     '''
 
-    url = f'{URL_PREFIX}{public_key}'
+    url: str = f'{URL_PREFIX}{public_key}'
     if path:
         url += f'&path={path}'
 
@@ -42,17 +42,19 @@ def get_target_file_name(
              если файл найден, иначе None.
     """
 
-    items = fetch_resources(public_key)  # Получаем все файлы и папки
+    items: list[dict[str, str]] = fetch_resources(public_key)  # Получаем все
+    # файлы и
+    # папки
 
     # Ищем файл с искомым именем
-    file_info = next(
+    file_info: Optional[dict[str, str]] = next(
         (item for item in items if item.get('name') == target_file_name),
         None
     )
 
     if file_info:
         # Извлекаем ссылку на оригинал из sizes
-        original_url = file_info['sizes'][0]['url']
+        original_url: str = file_info['sizes'][0]['url']
         return original_url
 
     return None

@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 import requests
 from flask import Flask, render_template, request, send_file
@@ -21,13 +22,13 @@ def index() -> str:
     '''
 
     files: list[dict[str, str]] = []
-    public_key = None
-    path = None
+    public_key: Optional[str] = None
+    path: Optional[str] = None
 
     if request.method == 'POST':
         public_key = request.form.get('public_key')
         path = request.form.get('path')
-        files = fetch_resources(public_key, path)
+        files: list[dict[str, str]] = fetch_resources(public_key, path)
 
     return render_template(
         './index.html',
@@ -43,10 +44,10 @@ def download():
     :return: Файл для скачивания или сообщение об ошибке.
     '''
 
-    public_key = request.form.get('public_key')
-    target_file_name = request.form.get('file_name')[1:]  # Имя файла
+    public_key: Optional[str] = request.form.get('public_key')
+    target_file_name: str = request.form.get('file_name')[1:]  # Имя файла
 
-    original_url = get_target_file_name(
+    original_url: Optional[str] = get_target_file_name(
         public_key,
         target_file_name
     )
