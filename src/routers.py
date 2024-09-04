@@ -1,5 +1,4 @@
 import os
-from typing import Any, Dict, List
 
 import requests
 from flask import Flask, render_template, request, send_file
@@ -21,7 +20,7 @@ def index() -> str:
     :return: HTML-шаблон главной страницы.
     '''
 
-    files: List[Dict[str, Any]] = []
+    files: list[dict[str, str]] = []
     public_key = None
     path = None
 

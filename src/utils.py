@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Optional
 
 import requests
 
@@ -8,7 +8,7 @@ from src.constants import URL_PREFIX
 def fetch_resources(
     public_key: str,
     path: Optional[str] = None
-) -> list[dict[str, Any]]:
+) -> list[dict[str, str]]:
     '''
     Получает список файлов и папок по публичной ссылке на Яндекс.Диск.
 

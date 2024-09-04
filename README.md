@@ -1,6 +1,7 @@
 ## Mycego Тестовое задание Python-разработчик 
 Тестовое задание. </br>
 Описание задания
+
 ![image](https://github.com/user-attachments/assets/72c52215-6a8b-4231-b576-6331d037516d)
 
 ##### Стек: Pyton, Flask
@@ -48,7 +49,7 @@ python3 -m venv venv
 Запустить проект:
 
 ```
-python фзз.py
+python app.py
 ```
 
 
