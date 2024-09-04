@@ -73,4 +73,7 @@ docker compose -f docker-compose.yml up --build
 Для перехода в папку нажмите "Открыть"  </br>
 Для скачивания файла нажмите "Скачать", укажите путь для сохранения файла </br>
 
+![image](https://github.com/user-attachments/assets/501b29c8-dc9f-4e2c-8b26-716b61756962)
+
+
 Автор: [К.Гурашкин](https://github.com/CrockoMan)
